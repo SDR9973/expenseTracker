@@ -1,13 +1,17 @@
 const express = require('express');
 const {
-  addWallet,
-  fetchAllWallets,
-  fetchWalletById
-} = require('../controller/walletsController');
+  addTransaction,
+  fetchAllTransactions,
+  fetchTransactionById,
+  updateTransaction,
+  deleteTransaction
+} = require('../controller/transactionsController');
 const router = express.Router();
 
-router.post('/create', addWallet);
-router.get('/all', fetchAllWallets);
-router.get('/:id', fetchWalletById);
+router.post('/create', addTransaction);
+router.get('/all', fetchAllTransactions);
+router.get('/:id', fetchTransactionById);
+router.put('/:id', updateTransaction);
+router.delete('/:id', deleteTransaction);
 
 module.exports = router;

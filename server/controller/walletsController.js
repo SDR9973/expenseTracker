@@ -11,56 +11,99 @@ const dbPool = mysql.createPool({
   queueLimit: 0
 });
 
-async function addWallet(req, res) {
-  const { child_id, parent_id, amount } = req.body;
+async function addTransaction(req, res) {
+  const { child_id, amount, date, time, category_id } = req.body;
 
-  const insertQuery = `
-    INSERT INTO tbl_107_wallets (child_id, parent_id, amount)
-    VALUES (?, ?, ?)
-  `;
   try {
-    const [insertResult] = await dbPool.query(insertQuery, [child_id, parent_id, amount]);
-    console.log("New wallet created:", insertResult);
-    res.status(201).send({ message: "Wallet created successfully." });
+    const query = `
+      INSERT INTO tbl_107_transactions (child_id, amount, date, time, category_id)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+    const [result] = await dbPool.query(query, [child_id, amount, date, time, category_id]);
+    res.status(201).send({ message: "Transaction created successfully.", transaction_id: result.insertId });
   } catch (error) {
-    console.error("Error creating wallet:", error);
-    res.status(500).send({ error: "Failed to create wallet." });
+    console.error("Error adding transaction:", error);
+    res.status(500).send({ error: "Failed to add transaction." });
   }
 }
 
-async function fetchAllWallets(req, res) {
-  const query = "SELECT * FROM tbl_107_wallets";
-
+async function fetchAllTransactions(req, res) {
   try {
+    const query = "SELECT * FROM tbl_107_transactions";
     const [rows] = await dbPool.query(query);
     res.status(200).send(rows);
   } catch (error) {
-    console.error("Error fetching wallets:", error);
-    res.status(500).send({ error: "Failed to fetch wallets." });
+    console.error("Error fetching transactions:", error);
+    res.status(500).send({ error: "Failed to fetch transactions." });
   }
 }
 
-async function fetchWalletById(req, res) {
-  const walletId = req.params.id;
-  const query = "SELECT * FROM tbl_107_wallets WHERE wallet_id = ?";
+async function fetchTransactionById(req, res) {
+  const transactionId = req.params.id;
 
   try {
-    const [rows] = await dbPool.query(query, [walletId]);
+    const query = "SELECT * FROM tbl_107_transactions WHERE transaction_id = ?";
+    const [rows] = await dbPool.query(query, [transactionId]);
 
     if (rows.length === 0) {
-      res.status(404).send({ error: "Wallet not found." });
+      res.status(404).send({ error: "Transaction not found." });
       return;
     }
 
     res.status(200).send(rows[0]);
   } catch (error) {
-    console.error("Error fetching wallet:", error);
-    res.status(500).send({ error: "Failed to fetch wallet." });
+    console.error("Error fetching transaction:", error);
+    res.status(500).send({ error: "Failed to fetch transaction." });
+  }
+}
+
+async function updateTransaction(req, res) {
+  const transactionId = req.params.id;
+  const { child_id, amount, date, time, category_id } = req.body;
+
+  try {
+    const query = `
+      UPDATE tbl_107_transactions
+      SET child_id = ?, amount = ?, date = ?, time = ?, category_id = ?
+      WHERE transaction_id = ?
+    `;
+    const [result] = await dbPool.query(query, [child_id, amount, date, time, category_id, transactionId]);
+
+    if (result.affectedRows === 0) {
+      res.status(404).send({ error: "Transaction not found." });
+      return;
+    }
+
+    res.status(200).send({ message: "Transaction updated successfully." });
+  } catch (error) {
+    console.error("Error updating transaction:", error);
+    res.status(500).send({ error: "Failed to update transaction." });
+  }
+}
+
+async function deleteTransaction(req, res) {
+  const transactionId = req.params.id;
+
+  try {
+    const query = "DELETE FROM tbl_107_transactions WHERE transaction_id = ?";
+    const [result] = await dbPool.query(query, [transactionId]);
+
+    if (result.affectedRows === 0) {
+      res.status(404).send({ error: "Transaction not found." });
+      return;
+    }
+
+    res.status(200).send({ message: "Transaction deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting transaction:", error);
+    res.status(500).send({ error: "Failed to delete transaction." });
   }
 }
 
 module.exports = {
-  addWallet,
-  fetchAllWallets,
-  fetchWalletById,
+  addTransaction,
+  fetchAllTransactions,
+  fetchTransactionById,
+  updateTransaction,
+  deleteTransaction,
 };

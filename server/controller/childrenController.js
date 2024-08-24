@@ -28,17 +28,6 @@ async function addChild(req, res) {
   }
 }
 
-async function fetchAllChildren(req, res) {
-  const query = "SELECT * FROM tbl_107_children";
-
-  try {
-    const [rows] = await dbPool.query(query);
-    res.status(200).send(rows);
-  } catch (error) {
-    console.error("Error fetching children:", error);
-    res.status(500).send({ error: "Failed to fetch children." });
-  }
-}
 
 async function fetchChildById(req, res) {
   const childId = req.params.id;

@@ -39,18 +39,6 @@ async function createParent(req, res) {
   }
 }
 
-async function getAllParents(req, res) {
-  const query = "SELECT * FROM tbl_107_parents";
-
-  try {
-    const [rows] = await dbPool.query(query);
-    res.status(200).send(rows);
-  } catch (error) {
-    console.error("Error fetching parents:", error);
-    res.status(500).send({ error: "Failed to fetch parents." });
-  }
-}
-
 async function getParentById(req, res) {
   const parentId = req.params.id;
   const query = "SELECT * FROM tbl_107_parents WHERE parent_id = ?";
@@ -93,14 +81,53 @@ async function loginParent(req, res) {
   }
 }
 
-async function logoutParent(req, res) {
-  res.status(200).send({ message: "Logout successful." });
+async function updateParent(req, res) {
+  const parentId = req.params.id;
+  const { email, name, password, child1_id, child2_id, bank, bank_account } = req.body;
+
+  try {
+    const query = `
+      UPDATE tbl_107_parents
+      SET email = ?, name = ?, password = ?, child1_id = ?, child2_id = ?, bank = ?, bank_account = ?
+      WHERE parent_id = ?
+    `;
+    const [result] = await dbPool.query(query, [email, name, password, child1_id, child2_id, bank, bank_account, parentId]);
+
+    if (result.affectedRows === 0) {
+      res.status(404).send({ error: "Parent not found." });
+      return;
+    }
+
+    res.status(200).send({ message: "Parent updated successfully." });
+  } catch (error) {
+    console.error("Error updating parent:", error);
+    res.status(500).send({ error: "Failed to update parent." });
+  }
+}
+
+async function deleteParent(req, res) {
+  const parentId = req.params.id;
+
+  try {
+    const query = "DELETE FROM tbl_107_parents WHERE parent_id = ?";
+    const [result] = await dbPool.query(query, [parentId]);
+
+    if (result.affectedRows === 0) {
+      res.status(404).send({ error: "Parent not found." });
+      return;
+    }
+
+    res.status(200).send({ message: "Parent deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting parent:", error);
+    res.status(500).send({ error: "Failed to delete parent." });
+  }
 }
 
 module.exports = {
   createParent,
-  getAllParents,
-  getParentById,
   loginParent,
-  logoutParent,
+  getParentById,
+  updateParent,
+  deleteParent
 };
