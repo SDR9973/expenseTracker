@@ -9,6 +9,7 @@ const dbPool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
+
 });
 
 async function addChild(req, res) {
@@ -50,6 +51,5 @@ async function fetchChildById(req, res) {
 
 module.exports = {
   addChild,
-  fetchAllChildren,
   fetchChildById,
 };

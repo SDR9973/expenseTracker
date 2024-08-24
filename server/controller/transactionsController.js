@@ -9,6 +9,7 @@ const dbPool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
+
 });
 
 async function addTransaction(req, res) {
