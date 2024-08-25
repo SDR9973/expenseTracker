@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Selector</title>
+  <style>
+   
+    select {
+      width: 200px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      appearance: none;
+      background-color: white;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5H7z" fill="rgba(0, 0, 0, 0.54)"/></svg>');
+      background-repeat: no-repeat;
+      background-position-x: 95%;
+      background-position-y: 50%;
+    }
+
+    select::-ms-expand {
+      display: none;
+    }
+
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+  </style>
 </head>
 <body>
-    
+  <h1>Select a Bank</h1>
+  <select id="bankSelect">
+    <option selected disabled>Bank</option>
+  </select>
+
+  <script src="./js/bankAPI.js"></script>
 </body>
 </html>
