@@ -15,10 +15,15 @@ document.onload = function() {
             },
             body: JSON.stringify(data)
         }).then(response => {
-            // !!! add parent or child check here
             if (response.status === 200) {
-                window.location.href = '/???';
+                document.cookie = `parentId=${response.parent_id}`;
+                document.cookie = `childId=${response.child1_id}`;
+                window.location.href = '/parent';
             } else {
+                // Display an error message
+                // as a line of text on the page in red
+                // below the login form
+                // !!!
                 alert('Invalid username or password');
             }
         });
