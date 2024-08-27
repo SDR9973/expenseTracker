@@ -18,6 +18,10 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to the Expense Tracker API!");
 });
 
+app.use((req, res) => {
+  res.status(404).send("Not found");
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
