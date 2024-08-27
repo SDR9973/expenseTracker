@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/style_home.css"> -->
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/parent.js"></script>
+    <title>Expence tracker</title>
+</head>
+
+<body>
+    <header class="home_header">
+        <img src="images/user_image.jpg" alt="user image">
+        <div>
+            <h3>June</h3>
+        </div>
+        <select id="monthSelect" class="select" aria-label="Default select">
+            <option value="-1">month</option>
+            <!-- <option value="">July</option>
+                <option value="">June</option> -->
+        </select>
+        </div>
+        <div class="notification_bell_icon"></div>
+    </header>
+    <main>
+        <div class="balance">
+            <h3>Account Balance</h3>
+            <h1 class="balance_amount">$1000</h1>
+        </div>
+        <div class="income_expense">
+            <div>
+                <div>
+                    <div class="income_icon"></div>
+                </div>
+                <div>
+                    <h3>Income</h3>
+                    <h4>$1000</h4>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div class="expense_icon"></div>
+                </div>
+                <div>
+                    <h3>Expense</h3>
+                    <h4>$1000</h4>
+                </div>
+            </div>
+        </div>
+        <div class="tansactions">
+            <div>
+                <h3>Transactions</h3>
+                <ul>
+                </ul>
+            </div>
+            <ul>
+            </ul>
+        </div>
+    </main>
+    <footer class="home_nav">
+        <nav>
+            <button class="selected" href="#">
+                <div id="home_icon"></div>
+                Home
+            </button>
+            <button href="#">
+                <div id="transaction_icon"></div>
+                Transaction
+            </button>
+            <button class="plus" href="#">
+                <div>
+                    <div id="plus_icon"></div>
+                </div>
+            </button>
+            <button href="#">
+                <div id="budget_icon"></div>Budget
+            </button>
+            <button href="#">
+                <div id="profile_icon"></div>Profile
+            </button>
+        </nav>
+    </footer>
+</body>
+
+</html>

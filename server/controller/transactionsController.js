@@ -60,8 +60,26 @@ async function fetchTransactionById(req, res) {
   }
 }
 
+async function fetchTransactionsByChildIdAndMonth(req, res) {
+  const { childId, month } = req.params;
+  const query = `
+    SELECT * FROM tbl_107_transactions
+    WHERE child_id = ? AND MONTH(date) = ?
+  `;
+
+  try {
+    const [rows] = await dbPool.query(query, [childId, month]);
+    res.status(200).send(rows);
+  }
+  catch (error) {
+    console.error("Error fetching transactions:", error);
+    res.status(500).send({ error: "Failed to fetch transactions." });
+  }
+}
+
 module.exports = {
   addTransaction,
   fetchAllTransactions,
   fetchTransactionById,
+  fetchTransactionsByChildIdAndMonth
 };
