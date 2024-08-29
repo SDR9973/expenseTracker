@@ -7,6 +7,7 @@
     <!-- <link rel="stylesheet" type="text/css" href="./css/style_home.css"> -->
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <script src="js/parent.js"></script>
     <title>Expence tracker</title>
 </head>
@@ -15,17 +16,21 @@
     <header class="home_header">
         <img src="images/user_image.jpg" alt="user image">
         <div>
-            <h3>June</h3>
+            <select name="child_select" id="child_select" class="form-select">
+                <option value="-1">Select Child</option>
+                <option value="1">Child 1</option>
+                <option value="2">Child 2</option>
+            </select>
+            <select name="month_select" id="month_select" class="form-select">
+                <option value="-1">month</option>
+                <option value="1">July</option>
+                <option value="2">June</option>
+            </select>
         </div>
-        <select id="monthSelect" class="select" aria-label="Default select">
-            <option value="-1">month</option>
-            <!-- <option value="">July</option>
-                <option value="">June</option> -->
-        </select>
         </div>
         <div class="notification_bell_icon"></div>
     </header>
-    <main>
+    <main class="home_main">
         <div class="balance">
             <h3>Account Balance</h3>
             <h1 class="balance_amount">$1000</h1>
@@ -50,13 +55,105 @@
                 </div>
             </div>
         </div>
-        <div class="tansactions">
+        <div class="transactions">
             <div>
                 <h3>Transactions</h3>
-                <ul>
-                </ul>
             </div>
             <ul>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$1000</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="transaction_icon"></div>
+                    <div>
+                        <h4>Shopping</h4>
+                        <p>$32400</p>
+                    </div>
+                </li>
             </ul>
         </div>
     </main>
@@ -69,11 +166,6 @@
             <button href="#">
                 <div id="transaction_icon"></div>
                 Transaction
-            </button>
-            <button class="plus" href="#">
-                <div>
-                    <div id="plus_icon"></div>
-                </div>
             </button>
             <button href="#">
                 <div id="budget_icon"></div>Budget

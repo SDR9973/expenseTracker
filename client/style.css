@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: blue;
+}
+
+.home_header,
+.home_main,
+.home_nav {
+    width: 100vw;
+    max-width: 600px;
+    background-color: #F5F5F5;
+}
+
+.home_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 16px;
+
+    img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0px 0px 0px 2px #F5F5F5, 0px 0px 0px 3px #AD00FF;
+    }
+
+    div {
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+    }
+
+    select {
+        border: none;
+        background-color: inherit;
+
+    }
+}
+
+.notification_bell_icon {
+    background-image: url('./images/notification_bell_icon.svg');
+    width: 21px;
+    height: 25px;
+}
+
+.home_nav {
+    display: block;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    bottom: 0;
+    height: 79px;
+
+    nav {
+        display: flex;
+        justify-content: space-evenly;
+        color: #7F3DFF;
+        background-color: #FCFCFC;
+        font-size: x-small;
+        font-weight: 500;
+        z-index: 1000;
+        height: 79px;
+    }
+
+    button {
+        display: flex;
+        flex-direction: column;
+        border: none;
+        background-color: #FCFCFC;
+        align-items: center;
+        width: 100%;
+
+        &:not(.plus) {
+            justify-content: center;
+        }
+
+        &:not(.selected) {
+            color: #C6C6C6;
+        }
+
+        &:active:not(.plus) {
+            background-color: #c6c6c647;
+        }
+    }
+
+    .selected {
+        color: #7F3DFF;
+
+        > svg {
+            /* fill: #7F3DFF; */
+            background-color: #7F3DFF;
+        }
+    }
+
+    :not(.selected) > svg {
+        background-color: #c6c6c647;
+    }
+}
+
+
+.plus {
+    display: flex;
+    justify-content: top;
+
+    > div {
+        display: flex;
+        width: calc(56px + 8px);
+        height: calc(56px + 8px);
+        background-color: #7F3DFF;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        position: center;
+    }
+
+    div:active {
+        background-color: #C6C6C6;
+    }
+}
+
+#plus_icon {
+    background-image: url('./images/plus_icon.svg');
+    background-position: center;
+    width: 27px;
+    height: 27px;
+}
+
+#home_icon {
+    background-image: url('./images/home_icon.svg');
+    width: 24px;
+    height: 24px;
+}
+
+#transaction_icon {
+    background-image: url('./images/transaction_icon.svg');
+    width: 28px;
+    height: 22px;
+}
+
+#profile_icon {
+    background-image: url('./images/profile_icon.svg');
+    width: 20px;
+    height: 24px;
+}
+
+#budget_icon {
+    background-image: url('./images/budget_icon.svg');
+    width: 24px;
+    height: 24px;
+}
+
+#card_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.balance {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.income_expense {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+}
+
+.income_icon {
+    background-image: url('./images/income_icon.svg');
+    width: 24px;
+    height: 28px;
+}
+
+.expense_icon {
+    background-image: url('./images/expense_icon.svg');
+    width: 24px;
+    height: 28px;
+}
+
+
+
+.transactions {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: fit-content;
+    padding-bottom: 79px;
+
+    > div:first-child {
+        display: flex;
+        height: 56px;
+        width: calc(100% - 16px);
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        color: #292B2D;
+        font-size: large;
+        margin: 8px;
+
+        h3 {
+            margin: 8px;
+            display: flex;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            /* align-self: center; */
+            /* width: 100%; */
+            /* height: 100%; */
+            font-size: large;
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #EEE5FF;
+            color: #7F3DFF;
+            border: none;
+            width: 78px;
+            height: 32px;
+            font-size: small;
+            font-weight: 500;
+            border-radius: 40px;
+
+            &:active {
+                background-color: #C6C6C6;
+            }
+        }
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+        margin-left: 20px;
+        margin-bottom: 0px;
+        padding: 0;
+        width: calc(100% - 40px);
+    }
+
+    li {
+        display: flex;
+        margin: 10px;
+        list-style-type: none;
+        justify-content: space-between;
+        align-items: left;
+
+        .card_text {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-left: 10px;
+            height: 100%;
+            margin-top: 6px;
+            margin-bottom: 6px;
+
+            &:first-child {
+                align-items: flex-start;
+            }
+
+            &:last-child {
+                align-items: flex-end;
+                margin-left: auto;
+            }
+
+            h4,
+            p {
+                font-weight: 500;
+                margin: 0;
+                justify-self: center;
+            }
+
+            h4 {
+                font-size: 1rem;
+            }
+
+            p {
+                font-size: 0.8125rem;
+                color: #91919F;
+            }
+
+        }
+    }
+}
+
+.transaction_card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #FCEED4; */
+    border-radius: 16px;
+    margin: 8px;
+    padding: 8px;
+    height: 80px;
+    width: calc(100% - 16px);
+}
