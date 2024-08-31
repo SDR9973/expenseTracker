@@ -14,16 +14,12 @@ app.use("/api/parents", parentsRouter);
 app.use("/api/wallets", walletsRouter);
 app.use("/api/transactions", transactionsRouter);
 app.use("/api/children", childrenRouter);
+
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to the Expense Tracker API!");
 });
 
-app.use((req, res) => {
-  res.status(404).send("Not found");
-});
-
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-
 });

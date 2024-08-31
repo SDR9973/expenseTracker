@@ -12,15 +12,15 @@ const dbPool = mysql.createPool({
 });
 
 async function createWallet(req, res) {
-  const { child_id, parent_id, allowance, bank, bank_account } = req.body;
+  const { child_id, parent_id, allowance, bank } = req.body;
 
   const insertQuery = `
-    INSERT INTO tbl_107_wallets (child_id, parent_id, allowance, bank, bank_account)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO tbl_107_wallets (child_id, parent_id, allowance, bank)
+    VALUES (?, ?, ?, ?)
   `;
   try {
-    const [insertResult] = await dbPool.query(insertQuery, [child_id, parent_id, allowance, bank, bank_account]);
-    res.status(201).send({ message: "Wallet created successfully.", walletId: insertResult.insertId });
+    const [insertResult] = await dbPool.query(insertQuery, [child_id, parent_id, allowance, bank]);
+    res.status(201).send({ message: "Wallet created successfully."});
   } catch (error) {
     console.error("Error creating wallet:", error);
     res.status(500).send({ error: "Failed to create wallet." });
@@ -57,30 +57,30 @@ async function getWalletById(req, res) {
     res.status(500).send({ error: "Failed to fetch wallet." });
   }
 }
-
 async function updateWallet(req, res) {
-  const walletId = req.params.id;
-  const { parent_id, allowance, bank, bank_account } = req.body;
-
-  const updateQuery = `
-    UPDATE tbl_107_wallets
-    SET parent_id = ?, allowance = ?, bank = ?, bank_account = ?
-    WHERE child_id = ?
-  `;
-  try {
-    const [updateResult] = await dbPool.query(updateQuery, [parent_id, allowance, bank, bank_account, walletId]);
-
-    if (updateResult.affectedRows === 0) {
-      res.status(404).send({ error: "Wallet not found." });
-      return;
+    const child_id = req.params.id; // Assuming walletId is passed as a URL parameter
+    const { allowance, bank } = req.body;
+  
+    const updateQuery = `
+      UPDATE tbl_107_wallets
+      SET allowance = ?, bank = ?
+      WHERE child_id = ?
+    `;
+    try {
+      const [updateResult] = await dbPool.query(updateQuery, [allowance, bank, child_id]);
+  
+      if (updateResult.affectedRows === 0) {
+        res.status(404).send({ error: "Wallet not found." });
+        return;
+      }
+  
+      res.status(200).send({ message: "Wallet updated successfully." });
+    } catch (error) {
+      console.error("Error updating wallet:", error);
+      res.status(500).send({ error: "Failed to update wallet." });
     }
-
-    res.status(200).send({ message: "Wallet updated successfully." });
-  } catch (error) {
-    console.error("Error updating wallet:", error);
-    res.status(500).send({ error: "Failed to update wallet." });
   }
-}
+  
 
 async function deleteWallet(req, res) {
   const walletId = req.params.id;

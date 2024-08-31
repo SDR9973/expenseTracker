@@ -52,7 +52,69 @@ async function getParentById(req, res) {
   }
 }
 
+async function getChildrenByParentId(req, res) {
+  const parentId = req.params.id;
+  const query = "SELECT * FROM tbl_107_children WHERE parent_id = ?";
+
+  try {
+    const [rows] = await dbPool.query(query, [parentId]);
+
+    if (rows.length === 0) {
+      res.status(404).send({ error: "No children found for this parent." });
+      return;
+    }
+
+    res.status(200).send(rows);
+  } catch (error) {
+    console.error("Error fetching children:", error);
+    res.status(500).send({ error: "Failed to fetch children." });
+  }
+}
+async function fetchAllTransactionsForChildrenByMonth(req, res) {
+  const parentId = req.params.id;
+  const month = req.query.month; // Get the month from the query parameter
+
+  if (!month) {
+    return res.status(400).send({ error: "Month is required as a query parameter." });
+  }
+
+  const getChildrenQuery = `
+    SELECT child_id FROM tbl_107_children 
+    WHERE parent_id = ?
+  `;
+
+  try {
+    // Step 1: Fetch all children IDs associated with the parent
+    const [children] = await dbPool.query(getChildrenQuery, [parentId]);
+    if (children.length === 0) {
+      return res.status(404).send({ error: "No children found for this parent." });
+    }
+
+    const childIds = children.map(child => child.child_id);
+
+    // Step 2: Fetch transactions for all the children within the specified month
+    const getTransactionsQuery = `
+      SELECT * FROM tbl_107_transactions 
+      WHERE child_id IN (?) AND MONTH(date) = ?
+    `;
+
+    const [transactions] = await dbPool.query(getTransactionsQuery, [childIds, month]);
+
+    if (transactions.length === 0) {
+      return res.status(404).send({ error: "No transactions found for the children in the specified month." });
+    }
+
+    res.status(200).send(transactions);
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    res.status(500).send({ error: "Failed to fetch transactions." });
+  }
+}
+
+
 module.exports = {
   loginParent,
   getParentById,
+  getChildrenByParentId,
+  fetchAllTransactionsForChildrenByMonth,
 };
