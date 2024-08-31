@@ -9,23 +9,21 @@ const dbPool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
-
 });
 
 async function addTransaction(req, res) {
-  const { child_id, amount, date, time, category_id } = req.body;
+  const { child_id, transfer_amount, date, time, category_id } = req.body;
 
   const insertQuery = `
-    INSERT INTO tbl_107_transactions (child_id, amount, date, time, category_id)
+    INSERT INTO tbl_107_transactions (child_id, transfer_amount, date, time, category_id)
     VALUES (?, ?, ?, ?, ?)
   `;
   try {
-    const [insertResult] = await dbPool.query(insertQuery, [child_id, amount, date, time, category_id]);
-    console.log("New transaction recorded:", insertResult);
-    res.status(201).send({ message: "Transaction added successfully." });
+    const [insertResult] = await dbPool.query(insertQuery, [child_id, transfer_amount, date, time, category_id]);
+    res.status(201).send({ message: "Transaction created successfully.", transactionId: insertResult.insertId });
   } catch (error) {
-    console.error("Error adding transaction:", error);
-    res.status(500).send({ error: "Failed to add transaction." });
+    console.error("Error creating transaction:", error);
+    res.status(500).send({ error: "Failed to create transaction." });
   }
 }
 
@@ -69,10 +67,15 @@ async function fetchTransactionsByChildIdAndMonth(req, res) {
 
   try {
     const [rows] = await dbPool.query(query, [childId, month]);
+
+    if (rows.length === 0) {
+      res.status(404).send({ error: "No transactions found for the specified child and month." });
+      return;
+    }
+
     res.status(200).send(rows);
-  }
-  catch (error) {
-    console.error("Error fetching transactions:", error);
+  } catch (error) {
+    console.error("Error fetching transactions by child ID and month:", error);
     res.status(500).send({ error: "Failed to fetch transactions." });
   }
 }
@@ -81,5 +84,5 @@ module.exports = {
   addTransaction,
   fetchAllTransactions,
   fetchTransactionById,
-  fetchTransactionsByChildIdAndMonth
+  fetchTransactionsByChildIdAndMonth,
 };

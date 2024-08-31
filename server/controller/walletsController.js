@@ -9,26 +9,25 @@ const dbPool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
-
 });
 
-async function addWallet(req, res) {
-  const { child_id, parent_id, amount } = req.body;
+async function createWallet(req, res) {
+  const { child_id, parent_id, allowance, bank, bank_account } = req.body;
 
   const insertQuery = `
-    INSERT INTO tbl_107_wallets (child_id, parent_id, amount)
-    VALUES (?, ?, ?)
+    INSERT INTO tbl_107_wallets (child_id, parent_id, allowance, bank, bank_account)
+    VALUES (?, ?, ?, ?, ?)
   `;
   try {
-    const [result] = await dbPool.query(insertQuery, [child_id, parent_id, amount]);
-    res.status(201).send({ message: "Wallet added successfully.", walletId: result.insertId });
+    const [insertResult] = await dbPool.query(insertQuery, [child_id, parent_id, allowance, bank, bank_account]);
+    res.status(201).send({ message: "Wallet created successfully.", walletId: insertResult.insertId });
   } catch (error) {
-    console.error("Error adding wallet:", error);
-    res.status(500).send({ error: "Failed to add wallet." });
+    console.error("Error creating wallet:", error);
+    res.status(500).send({ error: "Failed to create wallet." });
   }
 }
 
-async function fetchAllWallets(req, res) {
+async function getAllWallets(req, res) {
   const query = "SELECT * FROM tbl_107_wallets";
 
   try {
@@ -40,9 +39,9 @@ async function fetchAllWallets(req, res) {
   }
 }
 
-async function fetchWalletById(req, res) {
+async function getWalletById(req, res) {
   const walletId = req.params.id;
-  const query = "SELECT * FROM tbl_107_wallets WHERE wallet_id = ?";
+  const query = "SELECT * FROM tbl_107_wallets WHERE child_id = ?";
 
   try {
     const [rows] = await dbPool.query(query, [walletId]);
@@ -61,17 +60,17 @@ async function fetchWalletById(req, res) {
 
 async function updateWallet(req, res) {
   const walletId = req.params.id;
-  const { child_id, parent_id, amount } = req.body;
+  const { parent_id, allowance, bank, bank_account } = req.body;
 
   const updateQuery = `
     UPDATE tbl_107_wallets
-    SET child_id = ?, parent_id = ?, amount = ?
-    WHERE wallet_id = ?
+    SET parent_id = ?, allowance = ?, bank = ?, bank_account = ?
+    WHERE child_id = ?
   `;
   try {
-    const [result] = await dbPool.query(updateQuery, [child_id, parent_id, amount, walletId]);
+    const [updateResult] = await dbPool.query(updateQuery, [parent_id, allowance, bank, bank_account, walletId]);
 
-    if (result.affectedRows === 0) {
+    if (updateResult.affectedRows === 0) {
       res.status(404).send({ error: "Wallet not found." });
       return;
     }
@@ -86,11 +85,12 @@ async function updateWallet(req, res) {
 async function deleteWallet(req, res) {
   const walletId = req.params.id;
 
-  const deleteQuery = "DELETE FROM tbl_107_wallets WHERE wallet_id = ?";
-  try {
-    const [result] = await dbPool.query(deleteQuery, [walletId]);
+  const deleteQuery = "DELETE FROM tbl_107_wallets WHERE child_id = ?";
 
-    if (result.affectedRows === 0) {
+  try {
+    const [deleteResult] = await dbPool.query(deleteQuery, [walletId]);
+
+    if (deleteResult.affectedRows === 0) {
       res.status(404).send({ error: "Wallet not found." });
       return;
     }
@@ -103,9 +103,9 @@ async function deleteWallet(req, res) {
 }
 
 module.exports = {
-  addWallet,
-  fetchAllWallets,
-  fetchWalletById,
+  createWallet,
+  getAllWallets,
+  getWalletById,
   updateWallet,
   deleteWallet,
 };

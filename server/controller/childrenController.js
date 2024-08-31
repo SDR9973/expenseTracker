@@ -9,26 +9,23 @@ const dbPool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
-
 });
 
 async function addChild(req, res) {
-  const { name, parent_id } = req.body;
+  const { name, income, expense } = req.body;
 
   const insertQuery = `
-    INSERT INTO tbl_107_children (name, parent_id)
-    VALUES (?, ?)
+    INSERT INTO tbl_107_children (name, income, expense)
+    VALUES (?, ?, ?)
   `;
   try {
-    const [insertResult] = await dbPool.query(insertQuery, [name, parent_id]);
-    console.log("New child added:", insertResult);
-    res.status(201).send({ message: "Child added successfully." });
+    const [insertResult] = await dbPool.query(insertQuery, [name, income, expense]);
+    res.status(201).send({ message: "Child added successfully.", childId: insertResult.insertId });
   } catch (error) {
     console.error("Error adding child:", error);
     res.status(500).send({ error: "Failed to add child." });
   }
 }
-
 
 async function fetchChildById(req, res) {
   const childId = req.params.id;

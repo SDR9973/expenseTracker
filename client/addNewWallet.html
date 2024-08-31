@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add New Wallet</title>
   <style>
-    /* General styling */
+   
     body, html {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       height: 100%;
-      background-color: #7F3DFF; /* Violet color for background */
+      background-color: #7F3DFF; 
       display: flex;
-      justify-content: flex-end; /* Align container towards the bottom */
+      justify-content: flex-end; 
       align-items: center;
       flex-direction: column;
     }
@@ -90,12 +90,10 @@
       background-position-y: 50%;
     }
 
-    /* Remove the default arrow in select element for IE */
     select::-ms-expand {
       display: none;
     }
 
-    /* Styling for older versions of IE */
     select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -132,12 +130,13 @@
     <div class="amount">$00.0</div>
     <select id="bankSelect">
       <option selected disabled>Bank</option>
-      <!-- Add bank options dynamically through JavaScript -->
+    </select>
+    <select id="childSelect">
+        <option selected disabled>Child</option>
     </select>
     <button class="button">Continue</button>
   </div>
 
-  <!-- Link to your JavaScript file -->
   <script src="./js/bankAPI.js"></script>
 </body>
 </html>
