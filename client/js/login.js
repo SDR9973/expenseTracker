@@ -1,31 +1,24 @@
-document.onload = function() {
-    let loginForm = document.getElementById('login-form');
-    loginForm.onsubmit = function(event) {
+const url = 'http://localhost:5001';
+
+window.onload = () => {
+    let loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        let data = {
-            username: username,
-            password: password
-        };
-        fetch('/login', {
+        let email = document.getElementById('emailInput').value;
+        let password = document.getElementById('passwordInput').value;
+        fetch(`${url}/api/parents/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
-        }).then(response => {
-            if (response.status === 200) {
-                document.cookie = `parentId=${response.parent_id}`;
-                document.cookie = `childId=${response.child1_id}`;
-                window.location.href = '/parent';
-            } else {
-                // Display an error message
-                // as a line of text on the page in red
-                // below the login form
-                // !!!
-                alert('Invalid username or password');
-            }
-        });
-    };
-}
+            body: JSON.stringify({ email, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.cookie = `parentId=${data.parent.parent_id}`;
+                window.location.href = 'parent.html';
+            }).catch(() => {
+                document.getElementById(`loginError`).style.display = 'block';
+            });
+    });
+};
