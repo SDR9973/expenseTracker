@@ -13,8 +13,8 @@ const dbPool = mysql.createPool({
 
 async function addTransaction(req, res) {
   const { child_id, transfer_amount, description } = req.body;
-  const date = new Date().toISOString().split('T')[0]; // Get the current date in YYYY-MM-DD format
-  const time = new Date().toTimeString().split(' ')[0]; // Get the current time in HH:MM:SS format
+  const date = new Date().toISOString().split('T')[0]; 
+  const time = new Date().toTimeString().split(' ')[0]; 
 
   const insertQuery = `
     INSERT INTO tbl_107_transactions (child_id, transfer_amount, date, time, description)
@@ -61,7 +61,7 @@ async function fetchTransactionById(req, res) {
 }
 async function fetchTransactionsByChildIdAndMonth(req, res) {
   const childId = req.params.childId;
-  const month = req.params.month; // integer value from 1 to 12
+  const month = req.params.month; 
 
   const query = `
     SELECT * FROM tbl_107_transactions 

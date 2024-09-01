@@ -3,138 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./css/addNewWallets.css">
+  <script src="js/wallet.js"></script>
   <title>Add New Wallet</title>
-  <style>
-   
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      height: 100%;
-      background-color: #7F3DFF; 
-      display: flex;
-      justify-content: flex-end; 
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .header {
-      position: absolute;
-      top: 20px;
-      left: 10px;
-      display: flex;
-      align-items: center;
-      width: 100%;
-    }
-
-    .arrow-back {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-    }
-
-    .title {
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-      margin: 0 auto;
-      flex-grow: 1;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 400px;
-      background-color: #fff;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 0 px;
-      height: 50%;
-      
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      
-    }
-
-    .balance {
-      color: white;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .amount {
-      color: white;
-      font-size: 48px;
-      font-weight: bold;
-      text-align: center;
-      margin: 10px 0 20px 0;
-    }
-
-    select {
-      width: 100%;
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-    }
-
-    select {
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5H7z" fill="rgba(0, 0, 0, 0.54)"/></svg>');
-      background-repeat: no-repeat;
-      background-position-x: calc(100% - 10px);
-      background-position-y: 50%;
-    }
-
-    select::-ms-expand {
-      display: none;
-    }
-
-    select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      background-color: #7F3DFF;
-      color: white;
-      text-align: center;
-      border-radius: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .button:hover {
-      background-color: #6B31CC;
-    }
-  </style>
 </head>
 <body>
   <div class="header">
+    <Button class="arrow-back">
+    </div>
     <div class="title">Add New Wallet</div>
   </div>
-  
+
+  <div class="balance-container" style="flex-direction:row; display:flex;">
+
+    <select id="currencySelect" style="width: 20%; display: inline;">
+        <option selected disabled>Currency</option>
+      </select>
+    <input type="text" class="amount-input" value="8000.0" id="balanceInput">
+  </div>
+
   <div class="container">
-    <div class="balance">Balance</div>
-    <div class="amount">$00.0</div>
     <select id="bankSelect">
       <option selected disabled>Bank</option>
     </select>
-    <select id="childSelect">
-        <option selected disabled>Child</option>
+    <select name="childList" id="childList" class="form-select">
     </select>
     <button class="button">Continue</button>
+
   </div>
 
   <script src="./js/bankAPI.js"></script>

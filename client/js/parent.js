@@ -6,26 +6,44 @@ window.onload = () => {
 }
 
 getChildren = () => {
-    let parentId = document.cookie.split('=')[1];
-    // fetch(`/api/children/:${parentId}`)
-    fetch(`/dev/children.json`)
+    // Retrieve the parentId from the cookies
+    const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+        const [name, value] = cookie.split('=');
+        acc[name] = value;
+        return acc;
+    }, {});
+    
+    const parentId = cookies['parentId'];
+    console.log(parentId)
+    if (!parentId) {
+        console.error('Parent ID not found in cookies');
+        return;
+    }
+
+    // Fetch the children of the parent
+    fetch(`http://localhost:5001/api/parents/${parentId}/children`)
         .then(response => response.json())
         .then(data => {
             const childList = document.getElementById('childList');
+            childList.innerHTML = ''; // Clear any existing options
             data.forEach(child => {
+                console.log(child)
                 const childElement = document.createElement('option');
                 childElement.innerHTML = child.name;
                 childElement.value = child.child_id;
                 childList.appendChild(childElement);
             });
+
+            // Set the first child's ID as a cookie if there are children
+            if (data.length > 0) {
+                document.cookie = `childId=${childList.options[0].value}`;
+            }
         })
-        .then(() => {
-            document.cookie = `childId=${document.getElementById('childList')[0].value}`;
-        }).catch(() => {
-            console.log('Error fetching children');
-            // reload();
+        .catch(error => {
+            console.error('Error fetching children:', error);
         });
 }
+
 
 loadMonth = () => {
     const selectElement = document.getElementById('monthSelect');

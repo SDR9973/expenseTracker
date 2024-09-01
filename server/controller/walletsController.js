@@ -12,14 +12,14 @@ const dbPool = mysql.createPool({
 });
 
 async function createWallet(req, res) {
-  const { child_id, parent_id, allowance, bank } = req.body;
-
+  const { child_id, parent_id, allowance, bank, currency } = req.body;
+    console.log(req.body)
   const insertQuery = `
-    INSERT INTO tbl_107_wallets (child_id, parent_id, allowance, bank)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO tbl_107_wallets (child_id, parent_id, allowance, bank, currency)
+    VALUES (?, ?, ?, ?, ?)
   `;
   try {
-    const [insertResult] = await dbPool.query(insertQuery, [child_id, parent_id, allowance, bank]);
+    const [insertResult] = await dbPool.query(insertQuery, [child_id, parent_id, allowance, bank, currency]);
     res.status(201).send({ message: "Wallet created successfully."});
   } catch (error) {
     console.error("Error creating wallet:", error);
@@ -58,7 +58,7 @@ async function getWalletById(req, res) {
   }
 }
 async function updateWallet(req, res) {
-    const child_id = req.params.id; // Assuming walletId is passed as a URL parameter
+    const child_id = req.params.id; 
     const { allowance, bank } = req.body;
   
     const updateQuery = `

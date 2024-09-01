@@ -72,7 +72,7 @@ async function getChildrenByParentId(req, res) {
 }
 async function fetchAllTransactionsForChildrenByMonth(req, res) {
   const parentId = req.params.id;
-  const month = req.query.month; // Get the month from the query parameter
+  const month = req.query.month; 
 
   if (!month) {
     return res.status(400).send({ error: "Month is required as a query parameter." });
@@ -84,7 +84,6 @@ async function fetchAllTransactionsForChildrenByMonth(req, res) {
   `;
 
   try {
-    // Step 1: Fetch all children IDs associated with the parent
     const [children] = await dbPool.query(getChildrenQuery, [parentId]);
     if (children.length === 0) {
       return res.status(404).send({ error: "No children found for this parent." });
@@ -92,7 +91,6 @@ async function fetchAllTransactionsForChildrenByMonth(req, res) {
 
     const childIds = children.map(child => child.child_id);
 
-    // Step 2: Fetch transactions for all the children within the specified month
     const getTransactionsQuery = `
       SELECT * FROM tbl_107_transactions 
       WHERE child_id IN (?) AND MONTH(date) = ?
