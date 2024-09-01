@@ -16,15 +16,9 @@
     <header class="home_header">
         <img src="images/user_image.jpg" alt="user image">
         <div>
-            <select name="child_select" id="child_select" class="form-select">
-                <option value="-1">Select Child</option>
-                <option value="1">Child 1</option>
-                <option value="2">Child 2</option>
+            <select name="childList" id="childList" class="form-select">
             </select>
-            <select name="month_select" id="month_select" class="form-select">
-                <option value="-1">month</option>
-                <option value="1">July</option>
-                <option value="2">June</option>
+            <select name="monthSelect" id="monthSelect" class="form-select">
             </select>
         </div>
         </div>
@@ -59,99 +53,13 @@
             <div>
                 <h3>Transactions</h3>
             </div>
-            <ul>
+            <ul id="transactionList">
                 <li>
                     <div class="transaction_icon"></div>
                     <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$32400</p>
+                        <h4>Nothing yet</h4>
+                        <p>$0.0</p>
+                        <p>There are no transactions yet</p>
                     </div>
                 </li>
             </ul>
@@ -168,10 +76,10 @@
                 Transaction
             </button>
             <button href="#">
-                <div id="budget_icon"></div>Budget
+                <i class="bi bi-people-fill budget_icon"></i>Budget
             </button>
             <button href="#">
-                <div id="profile_icon"></div>Profile
+                <div id="statistics_icon"></div>Statistics
             </button>
         </nav>
     </footer>

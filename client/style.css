@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 * {
     margin: 0;
@@ -62,6 +63,37 @@ html {
     height: 25px;
 }
 
+#plus_icon {
+    background-image: url('./images/plus_icon.svg');
+    background-position: center;
+    width: 27px;
+    height: 27px;
+}
+
+#home_icon {
+    background-image: url('./images/home_icon.svg');
+    width: 24px;
+    height: 24px;
+}
+
+#transaction_icon {
+    background-image: url('./images/transaction_icon.svg');
+    width: 28px;
+    height: 22px;
+}
+
+#statistics_icon {
+    background-image: url('./images/statistics_icon.svg');
+    width: 24px;
+    height: 24px;
+}
+
+#budget_icon {
+    /* background-image: url('./images/budget_icon.svg'); */
+    width: 24px;
+    height: 24px;
+}
+
 .home_nav {
     display: block;
     position: fixed;
@@ -104,14 +136,17 @@ html {
 
     .selected {
         color: #7F3DFF;
+        stroke: red;
 
-        > svg {
-            /* fill: #7F3DFF; */
-            background-color: #7F3DFF;
+        fill: red;
+
+        svg {
+            background-color: red;
         }
     }
 
-    :not(.selected) > svg {
+    :not(.selected) svg {
+        fill: #c6c6c647;
         background-color: #c6c6c647;
     }
 }
@@ -137,36 +172,7 @@ html {
     }
 }
 
-#plus_icon {
-    background-image: url('./images/plus_icon.svg');
-    background-position: center;
-    width: 27px;
-    height: 27px;
-}
 
-#home_icon {
-    background-image: url('./images/home_icon.svg');
-    width: 24px;
-    height: 24px;
-}
-
-#transaction_icon {
-    background-image: url('./images/transaction_icon.svg');
-    width: 28px;
-    height: 22px;
-}
-
-#profile_icon {
-    background-image: url('./images/profile_icon.svg');
-    width: 20px;
-    height: 24px;
-}
-
-#budget_icon {
-    background-image: url('./images/budget_icon.svg');
-    width: 24px;
-    height: 24px;
-}
 
 #card_icon {
     width: 30px;
@@ -212,14 +218,13 @@ html {
     height: 28px;
 }
 
-
-
 .transactions {
     display: flex;
     flex-direction: column;
     margin: auto;
     height: fit-content;
     padding-bottom: 79px;
+    min-height: 600px;
 
     > div:first-child {
         display: flex;
@@ -330,4 +335,11 @@ html {
     padding: 8px;
     height: 80px;
     width: calc(100% - 16px);
+}
+
+#loginError {
+    display: none;
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 10px;
 }
