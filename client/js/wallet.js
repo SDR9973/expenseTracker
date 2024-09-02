@@ -1,3 +1,4 @@
+const url = `http://localhost:5001`;
 window.onload = () => {
     getChildren();
     loadCurrencies();
@@ -12,7 +13,7 @@ getChildren = () => {
         acc[name] = value;
         return acc;
     }, {});
-    
+
     const parentId = cookies['parentId'];
     console.log(parentId);
     if (!parentId) {
@@ -20,11 +21,11 @@ getChildren = () => {
         return;
     }
 
-    fetch(`http://localhost:5001/api/parents/${parentId}/children`)
+    fetch(`${url}/api/parents/${parentId}/children`)
         .then(response => response.json())
         .then(data => {
             const childList = document.getElementById('childList');
-            childList.innerHTML = ''; 
+            childList.innerHTML = '';
             data.forEach(child => {
                 console.log(child);
                 const childElement = document.createElement('option');
@@ -33,7 +34,7 @@ getChildren = () => {
                 childList.appendChild(childElement);
             });
 
-            
+
             if (data.length > 0) {
                 document.cookie = `childId=${childList.options[0].value}`;
             }
@@ -57,7 +58,7 @@ loadCurrencies = () => {
                 currencySelect.appendChild(option);
             });
 
-            currencySelect.value = '$'; 
+            currencySelect.value = '$';
         })
         .catch(error => console.error('Error loading currencies:', error));
 }
@@ -74,9 +75,9 @@ handleSubmit = () => {
         return acc;
     }, {});
 
-    const parentId = parseInt(cookies['parentId']); 
-    const childId = parseInt(childList.value); 
-    const allowance = parseFloat(balanceInput.value); 
+    const parentId = parseInt(cookies['parentId']);
+    const childId = parseInt(childList.value);
+    const allowance = parseFloat(balanceInput.value);
     const bank = bankSelect.value;
     const currency = currencySelect.value;
 
@@ -90,7 +91,7 @@ handleSubmit = () => {
     console.log("wallet data :")
     console.log(walletData);
 
-    fetch('http://localhost:5001/api/wallets/create', {
+    fetch(`${url}/api/wallets/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -100,7 +101,7 @@ handleSubmit = () => {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        
+
     })
     .catch(error => {
         console.error('Error:', error);
