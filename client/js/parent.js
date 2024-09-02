@@ -81,12 +81,17 @@ getTransactions = () => {
     let expense = 0;
     let balance = 0;
     let allowance = 0;
-    let incomeElement = document.getElementById('income');
-    let expenseElement = document.getElementById('expense');
-    let balanceElement = document.getElementsByClassName('balance_amount')[0];
+    const incomeElement = document.getElementById('income');
+    const expenseElement = document.getElementById('expense');
+    const balanceElement = document.getElementsByClassName('balance_amount')[0];
+    const transactionList = document.getElementById('transactionList');
     incomeElement.innerHTML = `$...`;
     expenseElement.innerHTML = `$...`;
     balanceElement.innerHTML = `$.../$...`;
+    transactionList.innerHTML = `
+        <li>
+            <p>Loading ...</p>
+        </li>`;
     fetch(`${url}/api/wallets/${childId}`)
         .then(response => response.json())
         .then(data => {
@@ -96,7 +101,6 @@ getTransactions = () => {
         })
         .then(response => response.json())
         .then(data => {
-            const transactionList = document.getElementById('transactionList');
             transactionList.innerHTML = '';
             data.forEach(transaction => {
                 transfer_amount = Number(transaction.transfer_amount);
