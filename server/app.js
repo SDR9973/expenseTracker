@@ -1,3 +1,4 @@
+const morgan = require("morgan");
 const express = require("express");
 const cors = require("cors");
 const parentsRouter = require("./routes/parents");
@@ -8,6 +9,9 @@ const loginRouter = require("./routes/login");
 require("dotenv").config();
 
 const app = express();
+
+//for logging requests in the console
+app.use(morgan("dev"));
 
 app.use(cors());
 app.use(express.json());

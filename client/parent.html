@@ -17,8 +17,10 @@
         <img src="images/user_image.jpg" alt="user image">
         <div>
             <select name="childList" id="childList" class="form-select">
+                <option value="-1">...</option>
             </select>
             <select name="monthSelect" id="monthSelect" class="form-select">
+                <option value="-1">...</option>
             </select>
         </div>
         </div>
@@ -27,7 +29,7 @@
     <main class="home_main">
         <div class="balance">
             <h3>Account Balance</h3>
-            <h1 class="balance_amount">$1000</h1>
+            <h1 class="balance_amount">$.../$...</h1>
         </div>
         <div class="income_expense">
             <div>
@@ -36,7 +38,7 @@
                 </div>
                 <div>
                     <h3>Income</h3>
-                    <h4>$1000</h4>
+                    <h4 id="income">$...</h4>
                 </div>
             </div>
             <div>
@@ -45,7 +47,7 @@
                 </div>
                 <div>
                     <h3>Expense</h3>
-                    <h4>$1000</h4>
+                    <h4 id="expense">$...</h4>
                 </div>
             </div>
         </div>
@@ -55,12 +57,7 @@
             </div>
             <ul id="transactionList">
                 <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Nothing yet</h4>
-                        <p>$0.0</p>
-                        <p>There are no transactions yet</p>
-                    </div>
+                    <p>Loading ...</p>
                 </li>
             </ul>
         </div>
