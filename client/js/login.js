@@ -6,12 +6,13 @@ window.onload = () => {
         event.preventDefault();
         let email = document.getElementById('emailInput').value;
         let password = document.getElementById('passwordInput').value;
-        fetch(`${url}/api/parents/login`, {
+        let account_type = document.getElementById('accountTypeInput').value;
+        fetch(`${url}/api/login/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password , account_type})
         })
             .then(response => response.json())
             .then(data => {
