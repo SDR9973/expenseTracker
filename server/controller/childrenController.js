@@ -12,14 +12,14 @@ const dbPool = mysql.createPool({
 });
 
 async function addChild(req, res) {
-    const { name, parent_id } = req.body;
+    const { email, password, name, parent_id } = req.body;
   
     const insertQuery = `
-      INSERT INTO tbl_107_children (name, parent_id)
-      VALUES (?, ?)
+      INSERT INTO tbl_107_children (email, password, name, parent_id)
+      VALUES (?, ?, ?, ?)
     `;
     try {
-      const [insertResult] = await dbPool.query(insertQuery, [name, parent_id]);
+      const [insertResult] = await dbPool.query(insertQuery, [email, password,name, parent_id]);
       res.status(201).send({ message: "Child added successfully.", childId: insertResult.insertId });
     } catch (error) {
       console.error("Error adding child:", error);
