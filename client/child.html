@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" type="text/css" href="./css/style_home.css"> -->
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <script src="js/parent.js"></script>
+    <script src="js/child.js"></script>
     <title>Expence tracker</title>
 </head>
 
@@ -16,24 +14,16 @@
     <header class="home_header">
         <img src="images/user_image.jpg" alt="user image">
         <div>
-            <select name="child_select" id="child_select" class="form-select">
-                <option value="-1">Select Child</option>
-                <option value="1">Child 1</option>
-                <option value="2">Child 2</option>
+            <select name="monthSelect" id="monthSelect" class="form-select">
+                <option value="-1">...</option>
             </select>
-            <select name="month_select" id="month_select" class="form-select">
-                <option value="-1">month</option>
-                <option value="1">July</option>
-                <option value="2">June</option>
-            </select>
-        </div>
         </div>
         <div class="notification_bell_icon"></div>
     </header>
     <main class="home_main">
         <div class="balance">
             <h3>Account Balance</h3>
-            <h1 class="balance_amount">$1000</h1>
+            <h1 class="balance_amount">$.../$...</h1>
         </div>
         <div class="income_expense">
             <div>
@@ -42,7 +32,7 @@
                 </div>
                 <div>
                     <h3>Income</h3>
-                    <h4>$1000</h4>
+                    <h4 id="income">$...</h4>
                 </div>
             </div>
             <div>
@@ -51,7 +41,7 @@
                 </div>
                 <div>
                     <h3>Expense</h3>
-                    <h4>$1000</h4>
+                    <h4 id="expense">$...</h4>
                 </div>
             </div>
         </div>
@@ -59,62 +49,9 @@
             <div>
                 <h3>Transactions</h3>
             </div>
-            <ul>
+            <ul id="transactionList">
                 <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$1000</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="transaction_icon"></div>
-                    <div>
-                        <h4>Shopping</h4>
-                        <p>$34450</p>
-                    </div>
+                    <p>Loading ...</p>
                 </li>
             </ul>
         </div>
