@@ -8,14 +8,14 @@ window.onload = () => {
 }
 
 getChildren = () => {
-    // Retrieve the parentId from the cookies
+    // Retrieve the parentId (accountId) from the cookies
     const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
         const [name, value] = cookie.split('=');
         acc[name] = value;
         return acc;
     }, {});
 
-    const parentId = cookies['parentId'];
+    const parentId = cookies['accountId'];
     console.log(parentId)
     if (!parentId) {
         console.error('Parent ID not found in cookies');

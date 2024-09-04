@@ -22,8 +22,16 @@
             </nav>
         </header>
         <main>
-            <h3 id="loginError">Invalid password or email</h3>
             <form id="loginForm">
+                <h3 id="loginError">Invalid password or email</h3>
+                <div class="mb-3">
+                    <label for="accountTypeInput" class="form-label">Account Type</label>
+                    <select id="accountTypeInput" class="form-select mb-3" required>
+                        <option selected disabled value="">Account Type</option>
+                        <option value="parent">Parent</option>
+                        <option value="child">Child</option>
+                    </select>
+                </div>
                 <div class="mb-3">
                     <label for="emailInput" class="form-label">Email</label>
                     <input type="email" class="form-control" id="emailInput" placeholder="Email or Username" required>

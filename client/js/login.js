@@ -1,9 +1,11 @@
 const url = 'http://localhost:5001';
 
 window.onload = () => {
-    let loginForm = document.getElementById('loginForm');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
     loginForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        loginError.style.display = 'none';
         let email = document.getElementById('emailInput').value;
         let password = document.getElementById('passwordInput').value;
         let account_type = document.getElementById('accountTypeInput').value;
@@ -12,14 +14,19 @@ window.onload = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password , account_type})
+            body: JSON.stringify({ email, password, account_type })
         })
             .then(response => response.json())
             .then(data => {
-                document.cookie = `parentId=${data.parent.parent_id}`;
-                window.location.href = 'parent.html';
+                if (account_type === 'parent') {
+                    document.cookie = `accountId=${data.login.parent_id}`;
+                    window.location.href = 'parent.html';
+                } else {
+                    document.cookie = `accountId=${data.login.child_id}`;
+                    window.location.href = 'child.html';
+                }
             }).catch(() => {
-                document.getElementById(`loginError`).style.display = 'block';
+                loginError.style.display = 'block';
             });
     });
 };
