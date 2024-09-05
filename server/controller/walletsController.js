@@ -29,25 +29,23 @@ async function getAllWallets(req, res) {
 }
 
 async function getAllWalletsByParentId(req, res) {
-  const parentId = req.params.id;
-  const query = "SELECT * FROM tbl_107_wallets WHERE parent_id = ?";
-
-  try {
-    const [rows] = await dbPool.query(query, [parentId]);
-    res.status(200).send(rows);
-
-    if (rows.length === 0) {
-      res.status(404).send({ error: "Wallet not found." });
-      return;
+    try {
+      const parentId = req.params.parentId;
+      const [wallets] = await dbPool.query("SELECT * FROM tbl_107_wallets WHERE parent_id = ?", [parentId]);
+  
+      if (!wallets.length) {
+        return res.status(404).json({ message: "No wallets found" });
+      }
+  
+      res.json(wallets);
+    } catch (error) {
+      console.error("Error fetching wallets:", error);
+      res.status(500).json({ error: "Error fetching wallets" }); 
     }
-
-  } catch (error) {
-    console.error("Error fetching wallets:", error);
-    res.status(500).send({ error: "Failed to fetch wallets." });
   }
-}
+  
 
-async function getWalletById(req, res) {
+async function getWalletByChildId(req, res) {
   const walletId = req.params.id;
   const query = "SELECT * FROM tbl_107_wallets WHERE child_id = ?";
 
@@ -114,7 +112,7 @@ module.exports = {
   createWallet,
   getAllWallets,
   getAllWalletsByParentId,
-  getWalletById,
+  getWalletByChildId,
   updateWallet,
   deleteWallet,
 };

@@ -1,16 +1,16 @@
 const { dbPool } = require("../dbConnect");
 
 async function addTransaction(req, res) {
-  const { child_id, transfer_amount, description } = req.body;
+  const { child_id, transfer_amount, description, category } = req.body;
   const date = new Date().toISOString().split('T')[0]; 
   const time = new Date().toTimeString().split(' ')[0]; 
 
   const insertQuery = `
-    INSERT INTO tbl_107_transactions (child_id, transfer_amount, date, time, description)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO tbl_107_transactions (child_id, transfer_amount, date, time, description, category)
+    VALUES (?, ?, ?, ?, ?, ?)
   `;
   try {
-    const [insertResult] = await dbPool.query(insertQuery, [child_id, transfer_amount, date, time, description]);
+    const [insertResult] = await dbPool.query(insertQuery, [child_id, transfer_amount, date, time, description, category]);
     res.status(201).send({ message: "Transaction added successfully.", transactionId: insertResult.insertId });
   } catch (error) {
     console.error("Error adding transaction:", error);
