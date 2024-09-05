@@ -14,7 +14,7 @@ getChildren = () => {
         return acc;
     }, {});
 
-    const parentId = cookies['parentId'];
+    const parentId = cookies['accountId'];
     console.log(parentId);
     if (!parentId) {
         console.error('Parent ID not found in cookies');
@@ -75,7 +75,7 @@ handleSubmit = () => {
         return acc;
     }, {});
 
-    const parentId = parseInt(cookies['parentId']);
+    const parentId = parseInt(cookies['accountId']);
     const childId = parseInt(childList.value);
     const allowance = parseFloat(balanceInput.value);
     const bank = bankSelect.value;
@@ -101,7 +101,7 @@ handleSubmit = () => {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-
+        window.location.href = 'wallet.html';
     })
     .catch(error => {
         console.error('Error:', error);
