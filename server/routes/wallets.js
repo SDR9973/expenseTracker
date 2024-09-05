@@ -2,6 +2,7 @@ const express = require('express');
 const {
   createWallet,
   getAllWallets,
+  getAllWalletsByParentId,
   getWalletById,
   updateWallet,
   deleteWallet
@@ -10,6 +11,7 @@ const router = express.Router();
 
 router.post('/create', createWallet);
 router.get('/all', getAllWallets);
+router.get('/all/:id', getAllWalletsByParentId);
 router.get('/:id', getWalletById);
 router.put('/:id', updateWallet);
 router.delete('/:id', deleteWallet);

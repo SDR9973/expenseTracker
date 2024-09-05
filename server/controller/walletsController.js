@@ -13,14 +13,14 @@ const dbPool = mysql.createPool({
 
 async function createWallet(req, res) {
   const { child_id, parent_id, allowance, bank, currency } = req.body;
-    console.log(req.body)
+  console.log(req.body)
   const insertQuery = `
     INSERT INTO tbl_107_wallets (child_id, parent_id, allowance, bank, currency)
     VALUES (?, ?, ?, ?, ?)
   `;
   try {
     const [insertResult] = await dbPool.query(insertQuery, [child_id, parent_id, allowance, bank, currency]);
-    res.status(201).send({ message: "Wallet created successfully."});
+    res.status(201).send({ message: "Wallet created successfully." });
   } catch (error) {
     console.error("Error creating wallet:", error);
     res.status(500).send({ error: "Failed to create wallet." });
@@ -33,6 +33,25 @@ async function getAllWallets(req, res) {
   try {
     const [rows] = await dbPool.query(query);
     res.status(200).send(rows);
+  } catch (error) {
+    console.error("Error fetching wallets:", error);
+    res.status(500).send({ error: "Failed to fetch wallets." });
+  }
+}
+
+async function getAllWalletsByParentId(req, res) {
+  const parentId = req.params.id;
+  const query = "SELECT * FROM tbl_107_wallets WHERE parent_id = ?";
+
+  try {
+    const [rows] = await dbPool.query(query, [parentId]);
+    res.status(200).send(rows);
+
+    if (rows.length === 0) {
+      res.status(404).send({ error: "Wallet not found." });
+      return;
+    }
+
   } catch (error) {
     console.error("Error fetching wallets:", error);
     res.status(500).send({ error: "Failed to fetch wallets." });
@@ -57,30 +76,30 @@ async function getWalletById(req, res) {
     res.status(500).send({ error: "Failed to fetch wallet." });
   }
 }
+
 async function updateWallet(req, res) {
-    const child_id = req.params.id; 
-    const { allowance, bank } = req.body;
-  
-    const updateQuery = `
+  const child_id = req.params.id;
+  const { allowance, bank } = req.body;
+
+  const updateQuery = `
       UPDATE tbl_107_wallets
       SET allowance = ?, bank = ?
       WHERE child_id = ?
     `;
-    try {
-      const [updateResult] = await dbPool.query(updateQuery, [allowance, bank, child_id]);
-  
-      if (updateResult.affectedRows === 0) {
-        res.status(404).send({ error: "Wallet not found." });
-        return;
-      }
-  
-      res.status(200).send({ message: "Wallet updated successfully." });
-    } catch (error) {
-      console.error("Error updating wallet:", error);
-      res.status(500).send({ error: "Failed to update wallet." });
+  try {
+    const [updateResult] = await dbPool.query(updateQuery, [allowance, bank, child_id]);
+
+    if (updateResult.affectedRows === 0) {
+      res.status(404).send({ error: "Wallet not found." });
+      return;
     }
+
+    res.status(200).send({ message: "Wallet updated successfully." });
+  } catch (error) {
+    console.error("Error updating wallet:", error);
+    res.status(500).send({ error: "Failed to update wallet." });
   }
-  
+}
 
 async function deleteWallet(req, res) {
   const walletId = req.params.id;
@@ -105,6 +124,7 @@ async function deleteWallet(req, res) {
 module.exports = {
   createWallet,
   getAllWallets,
+  getAllWalletsByParentId,
   getWalletById,
   updateWallet,
   deleteWallet,
