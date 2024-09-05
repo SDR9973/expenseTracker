@@ -7,6 +7,11 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+}
+
 body,
 html {
     margin: 0;
@@ -69,30 +74,6 @@ html {
     height: 27px;
 }
 
-#home_icon {
-    background-image: url('./images/home_icon.svg');
-    width: 24px;
-    height: 24px;
-}
-
-#transaction_icon {
-    background-image: url('./images/transaction_icon.svg');
-    width: 28px;
-    height: 22px;
-}
-
-#statistics_icon {
-    background-image: url('./images/statistics_icon.svg');
-    width: 24px;
-    height: 24px;
-}
-
-#budget_icon {
-    /* background-image: url('./images/budget_icon.svg'); */
-    width: 24px;
-    height: 24px;
-}
-
 .home_nav {
     display: block;
     position: fixed;
@@ -112,13 +93,14 @@ html {
         height: 79px;
     }
 
-    button {
+    a {
         display: flex;
         flex-direction: column;
         border: none;
         background-color: #FCFCFC;
         align-items: center;
         width: 100%;
+
 
         &:not(.plus) {
             justify-content: center;
@@ -169,13 +151,6 @@ html {
     div:active {
         background-color: #C6C6C6;
     }
-}
-
-
-
-#card_icon {
-    width: 30px;
-    height: 30px;
 }
 
 .balance {
@@ -342,3 +317,46 @@ html {
     font-size: 0.8rem;
     margin-top: 10px;
 }
+
+.childItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .input-group {
+        display: flex;
+        flex-basis: 50%;
+        flex-direction: row;
+
+        .input-group-text {
+            background-color: #F5F5F5;
+            border: none;
+            color: #7F3DFF;
+            font-weight: 500;
+        }
+
+        .form-control {
+            border: none;
+            background-color: #F5F5F5;
+            color: #292B2D;
+            font-weight: 500;
+            text-align: left;
+            
+            padding: 10px;
+        }
+    }
+}
+
+.btn-primary {
+    background-color: #7F3DFF;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #5529aa;
+}
+
+.btn-primary:focus:active {
+    background-color: #2a1455;
+}
+
