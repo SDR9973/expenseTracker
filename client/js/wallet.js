@@ -72,10 +72,10 @@ loadList = (childData, walletData) => {
         if (!wallet) {
             wallet = { allowence: 0, currency: '$' };
         }
-        if(wallet.allowance === undefined) {
+        if (wallet.allowance === undefined) {
             wallet.allowance = 0;
         }
-        if(wallet.currency === undefined) {
+        if (wallet.currency === undefined) {
             wallet.currency = '$';
         }
 
