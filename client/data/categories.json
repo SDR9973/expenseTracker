@@ -1,24 +1,24 @@
 {
-    "categories": [
-      {
-        "category_id": 1,
-        "title": "Clothes",
-        "icon": " "
-      },
-      {
-        "category_id": 2,
-        "title": "Games",
-        "icon": " "
-      },
-      {
-        "category_id": 3,
-        "title": "Food",
-        "icon": " "
-      },
-      {
-        "category_id": 4,
-        "title": "Other",
-        "icon": " "
-      }
-    ]
-  }
+  "categories": [
+    {
+      "category_id": 1,
+      "title": "Clothes",
+      "icon": "<i class=\"bi bi-backpack2-fill\"></i>"
+    },
+    {
+      "category_id": 2,
+      "title": "Games",
+      "icon": "<i class=\"bi bi-controller\"></i>"
+    },
+    {
+      "category_id": 3,
+      "title": "Food",
+      "icon": "<i class=\"bi bi-cake2-fill\"></i>"
+    },
+    {
+      "category_id": 4,
+      "title": "Other",
+      "icon": "<i class=\"bi bi-box-seam-fill\"></i>"
+    }
+  ]
+}

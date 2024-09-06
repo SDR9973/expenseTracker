@@ -46,6 +46,12 @@ getTransactions = () => {
         <li>
             <p>Loading ...</p>
         </li>`;
+    let categories = [];
+    fetch(`../data/categories.json`)
+        .then(response => response.json())
+        .then(data => {
+            categories = data.categories;
+        });
     fetch(`${url}/api/wallets/${childId}`)
         .then(response => response.json())
         .then(data => {
@@ -62,15 +68,23 @@ getTransactions = () => {
                     expense += transfer_amount;
                 else
                     income += transfer_amount;
+                let icon = '';
+                icon = categories.find(category => category.title === transaction.category);
+                if (icon === undefined)
+                    icon = '<i class=\"bi bi-question-circle-fill\"></i>';
+                else
+                    icon = icon.icon;
                 const transactionElement = document.createElement('li');
                 transactionElement.innerHTML =
-                    `<div class="shopping"></div>
-                        <div>
-                            <h4>Shopping</h4>
-                            <p>${transaction.transfer_amount}</p>
-                            <p>${transaction.description}</p>
-                            <p>${transaction.date}</p>
-                        </div>`;
+                    `<div class="transactionIcon">
+                        ${icon}
+                    </div>
+                    <div>
+                        <h4>${transaction.category}</h4>
+                        <p>${transaction.transfer_amount}</p>
+                        <p>${transaction.description}</p>
+                        <p>${transaction.date}</p>
+                    </div>`;
                 transactionList.appendChild(transactionElement);
             });
         }).then(() => {
