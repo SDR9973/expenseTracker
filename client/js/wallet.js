@@ -6,6 +6,7 @@ window.onload = async () => {
         const childData = await getChildren();
         const walletData = await getAllowance();
         loadList(childData, walletData);
+        eventListeners();
     }
     catch (error) {
         console.error(error);
@@ -80,17 +81,58 @@ loadList = (childData, walletData) => {
         }
 
         const childElement = `
-            <li class="list-group-item mb-3 childItem" data-childId="${child.child_id}">
+            <li class="list-group-item mb-3 childItem">
                 <h3>${child.name}</h3>
-                <div class="input-group">
-                    <input type="number" class="form-control" placeholder="${wallet.allowance}">
+                <form class="input-group">
+                    <input type="number" step=".01" class="form-control" placeholder="${wallet.allowance}">
                     <span class="input-group-text">${wallet.currency}</span>
-                    <button class="btn btn-primary">Change</button>
-                    <button class="btn btn-outline-secondary">
+                    <button type="submit" class="btn btn-primary">Change</button>
+                    <button type="reset" class="btn btn-outline-secondary trash" data-childId="${child.child_id}">
                         <i class="bi bi-trash-fill"></i>
                     </button>
-                </div >
+                </form>
             </li>`;
         childrenList.innerHTML += childElement;
     });
-}
+};
+
+eventListeners = () => {
+    document.addEventListener('submit', handleChildUpdate);
+    document.addEventListener('reset', handleChildDelete);
+};
+
+handleChildUpdate = async (event) => {
+    const childId = event.target.getElementsByClassName('trash')[0].getAttribute('data-childId');
+    const allowance = event.target.getElementsByClassName('form-control')[0].value;
+    const currency = event.target.getElementsByClassName('input-group-text')[0].innerText;
+    const parentId = cookies['accountId'];
+    try {
+        const response = await fetch(`${url}/api/wallets/${childId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                allowance: allowance
+            })
+        });
+        const data = await response.json();
+    }
+    catch (error) {
+        console.error('Error updating wallet:', error);
+    }
+};
+
+handleChildDelete = async (event) => {
+    const childId = event.target.getElementsByClassName('trash')[0].getAttribute('data-childId');
+    try {
+        const response = await fetch(`${url}/api/wallets/${childId}`, {
+            method: 'DELETE'
+        });
+        const data = await response.json();
+        event.target.closest('.childItem').remove();
+    }
+    catch (error) {
+        console.error('Error deleting child:', error);
+    }
+};
