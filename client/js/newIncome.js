@@ -75,7 +75,7 @@ loadList = (currencyData, currentDate, categoriesData) => {
 };
 
 eventListeners = () => {
-    document.getElementById('newExpenseForm').addEventListener(`submit`, (event) => {
+    document.getElementById('newIncomeForm').addEventListener(`submit`, (event) => {
         event.preventDefault();
         submitExpense(event);
     });
@@ -85,13 +85,13 @@ submitExpense = async (event) => {
     const formData = new FormData(event.target);
     const childId = cookies['accountId'];
     const category = formData.get('category');
-    const amount = Number(-formData.get('amount'));
+    const amount = Number(formData.get('amount'));
     const description = formData.get('description');
     const datetime = formData.get('date');
     const date = datetime.split('T')[0];
     const time = datetime.split('T')[1];
     // (child_id, transfer_amount, date, time, description, category)
-    const expense = {
+    const income = {
         child_id: childId,
         transfer_amount: amount,
         date: date,
@@ -99,20 +99,20 @@ submitExpense = async (event) => {
         description: description,
         category: category
     };
-    console.log(expense);
+    console.log(income);
     try {
         const response = await fetch(`${url}/api/transactions/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(expense)
+            body: JSON.stringify(income)
         });
         const data = await response.json();
         console.log(data);
         window.location.href = 'child.html';
     }
     catch (error) {
-        console.error('Error submitting expense:', error);
+        console.error('Error submitting income:', error);
     }
 };
