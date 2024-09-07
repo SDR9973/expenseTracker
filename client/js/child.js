@@ -4,6 +4,7 @@ window.onload = () => {
     loadMonth();
     eventListeners();
     getTransactions();
+    popOverEnable();
 }
 
 loadMonth = () => {
@@ -106,4 +107,12 @@ getTransactions = () => {
             expenseElement.innerHTML = `$0.00`;
             balanceElement.innerHTML = `$${allowance} / $${allowance}`;
         });
+}
+
+popOverEnable = () => {
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    // const popover = new bootstrap.Popover('.popover-dismiss', {
+    //     trigger: 'focus'
+    //   })
 }
