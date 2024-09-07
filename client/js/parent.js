@@ -93,7 +93,7 @@ getTransactions = () => {
             <p>Loading ...</p>
         </li>`;
     let categories = [];
-    fetch(`../data/categories.json`)
+    fetch(`./data/categories.json`)
         .then(response => response.json())
         .then(data => {
             categories = data.categories;
