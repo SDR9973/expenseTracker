@@ -1,21 +1,33 @@
 const { dbPool } = require("../dbConnect");
 
 async function addChild(req, res) {
-    const { email, password, name, parent_id } = req.body;
-  
-    const insertQuery = `
-      INSERT INTO tbl_107_children (email, password, name, parent_id)
-      VALUES (?, ?, ?, ?)
-    `;
-    try {
-      const [insertResult] = await dbPool.query(insertQuery, [email, password,name, parent_id]);
-      res.status(201).send({ message: "Child added successfully.", childId: insertResult.insertId });
-    } catch (error) {
-      console.error("Error adding child:", error);
-      res.status(500).send({ error: "Failed to add child." });
+  const { email, password, name, parent_id } = req.body;
+
+  const checkParentQuery = `
+    SELECT parent_id FROM tbl_107_parents WHERE parent_id = ?
+  `;
+
+  const insertQuery = `
+    INSERT INTO tbl_107_children (email, password, name, parent_id)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  try {
+    const [parentRows] = await dbPool.query(checkParentQuery, [parent_id]);
+    
+    if (parentRows.length === 0) {
+      return res.status(404).send({ error: "Parent not found. Cannot add child." });
     }
+
+    const [insertResult] = await dbPool.query(insertQuery, [email, password, name, parent_id]);
+    res.status(201).send({ message: "Child added successfully.", childId: insertResult.insertId });
+    
+  } catch (error) {
+    console.error("Error adding child:", error);
+    res.status(500).send({ error: "Failed to add child." });
   }
-  
+}
+
   async function getChildrenByParentId(parentId) {
     const query = "SELECT child_id, name FROM tbl_107_children WHERE parent_id = ?";
   

@@ -74,7 +74,7 @@ async function fetchTransactionsByChildIdAndMonth(req, res) {
 async function fetchTransactionsByParentIdAndMonth(req, res) {
   const parentId = req.params.parentId;
   const month = req.params.month;
-
+  console.log(month)
   const query = `
     SELECT t.* FROM tbl_107_transactions t
     JOIN tbl_107_children c ON t.child_id = c.child_id

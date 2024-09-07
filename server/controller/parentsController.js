@@ -61,8 +61,8 @@ async function getChildrenByParentId(req, res) {
 }
 async function fetchAllTransactionsForChildrenByMonth(req, res) {
   const parentId = req.params.id;
-  const month = req.query.month; 
-
+  const month = req.params.month; 
+  console.log(month)
   if (!month) {
     return res.status(400).send({ error: "Month is required as a query parameter." });
   }

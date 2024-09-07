@@ -91,31 +91,11 @@ async function deleteWallet(req, res) {
   const walletId = req.params.id;
 
   const deleteQuery = "DELETE FROM tbl_107_wallets WHERE child_id = ?";
-  const deleteChildQuery = "DELETE FROM tbl_107_children WHERE child_id = ?";
-  const childQuery = "SELECT * FROM tbl_107_children WHERE child_id = ?";
-  const walletQuery = "SELECT * FROM tbl_107_wallets WHERE child_id = ?";
 
   try {
-    const [walletCheck] = await dbPool.query(walletQuery, [walletId]);
-    if (walletCheck.length !== 0) {
-      const [deleteResult] = await dbPool.query(deleteQuery, [walletId]);
-    }
-    const [childCheck] = await dbPool.query(childQuery, [walletId]);
-    if (childCheck.length !== 0) {
-      const [deleteChildResult] = await dbPool.query(deleteChildQuery, [walletId]);
-    }
+    const [deleteResult] = await dbPool.query(deleteQuery, [walletId]);
 
-    if (walletCheck.affectedRows === 0 && childCheck.affectedRows === 0) {
-      res.status(404).send({ error: "Wallet not found." });
-      return;
-    }
-
-    if (childCheck.affectedRows === 0) {
-      res.status(404).send({ error: "Child not found." });
-      return;
-    }
-
-    if (walletCheck.affectedRows === 0) {
+    if (deleteResult.affectedRows === 0) {
       res.status(404).send({ error: "Wallet not found." });
       return;
     }
