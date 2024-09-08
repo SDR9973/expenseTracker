@@ -18,6 +18,7 @@ window.onload = () => {
         })
             .then(response => response.json())
             .then(data => {
+                document.cookie = `accountType=${account_type}`;
                 if (account_type === 'parent') {
                     document.cookie = `accountId=${data.login.parent_id}`;
                     window.location.href = 'parent.html';
