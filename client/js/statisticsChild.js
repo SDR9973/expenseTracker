@@ -3,6 +3,7 @@ const url = 'https://expensetracker-qi9u.onrender.com';
 window.onload = async () => {
     try {
         pageCheck();
+        popOverEnable();
         const allowance = await getAllowance();
         const transactions = await getTransactions();
         const child = await getChild();
@@ -128,4 +129,9 @@ drawChart = (childArrayData, catagories) => {
     catch (error) {
         throw new Error('Error drawing chart:', error);
     }
+};
+
+popOverEnable = () => {
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
 };
