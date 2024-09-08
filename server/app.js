@@ -9,14 +9,9 @@ const loginRouter = require("./routes/login");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
 
-app.use(morgan("combined"));
-app.use(cors(
-  {
-    origin: [ 'http://localhost:5500', 'https://se.shenkar.ac.il/students/2023-2024/web1/']
-  }
-));
+app.use(morgan("dev"));
+app.use(cors());
 app.use(express.json());
 app.use("/api/parents", parentsRouter);
 app.use("/api/wallets", walletsRouter);
@@ -27,6 +22,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to the Expense Tracker API!");
 });
 
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
