@@ -64,7 +64,7 @@ loadList = (childData, walletData) => {
         let formElement = '';
         let wallet = walletData.find(wallet => wallet.child_id === child.child_id);
         if (!wallet) {
-            formElement = `<button class="btn btn-primary addWallet" data-childId="${child.child_id}">Add Wallet</button>`
+            formElement = `<button class="btn btn-primary addWallet" data-childId="${child.child_id}" data-self="addWallet">Add Wallet</button>`
         } else {
             if (wallet.allowance === undefined) {
                 wallet.allowance = 0;
@@ -124,6 +124,7 @@ handleChildDelete = async (event) => {
             method: 'DELETE'
         });
         const data = await response.json();
+        location.reload();
     }
     catch (error) {
         console.error('Error deleting child:', error);
@@ -132,7 +133,8 @@ handleChildDelete = async (event) => {
 
 handleAddWallet = async (event) => {
     const childId = event.target.getAttribute('data-childId');
-    if (!childId) return;
+    const self = event.target.getAttribute('data-self');
+    if (!self) return;
     cookies['childId'] = childId;
     window.location.href = 'addNewWallet.html';
 };
