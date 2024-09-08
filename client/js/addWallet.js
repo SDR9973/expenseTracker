@@ -1,4 +1,4 @@
-const url = `http://localhost:5001`;
+const url = `https://expensetracker-qi9u.onrender.com`;
 window.onload = () => {
     getChildren();
     loadCurrencies();
@@ -98,12 +98,12 @@ handleSubmit = () => {
         },
         body: JSON.stringify(walletData)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        window.location.href = 'wallet.html';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            window.location.href = 'wallet.html';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }

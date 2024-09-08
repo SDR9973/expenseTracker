@@ -1,4 +1,4 @@
-const url = 'http://localhost:5001';
+const url = 'https://expensetracker-qi9u.onrender.com';
 
 window.onload = async () => {
     try {

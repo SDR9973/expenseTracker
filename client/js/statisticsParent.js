@@ -1,4 +1,4 @@
-const url = 'http://localhost:5001';
+const url = 'https://expensetracker-qi9u.onrender.com';
 
 window.onload = async () => {
     try {
@@ -9,7 +9,7 @@ window.onload = async () => {
         const catagories = await getCategories();
         const childArrayData = loadList(allowance, transactions, children, catagories);
         google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(() => drawChart(childArrayData, catagories));
+        google.charts.setOnLoadCallback(() => drawChart(childArrayData, catagories, children.length));
     }
     catch (error) {
         console.error(error);
@@ -90,6 +90,9 @@ loadList = (allowance, transactions, children, catagories) => {
             childData[category] = 0;
         });
         let findAllowance = allowance.find(wallet => wallet.child_id === child.child_id);
+        if (!findAllowance) {
+            return;
+        }
         childData.balance = Number(findAllowance.allowance);
         transactions.forEach(transaction => {
             if (transaction.child_id === child.child_id) {
@@ -105,11 +108,11 @@ loadList = (allowance, transactions, children, catagories) => {
     return childArrayData;
 };
 
-drawChart = (childArrayData, catagories) => {
+drawChart = (childArrayData, catagories, numberOfChildren) => {
     let options_fullStacked = {
         isStacked: 'true',
         height: 300,
-        legend: { position: 'top', maxLines: 3 },
+        legend: { position: 'top', maxLines: Number(numberOfChildren) },
         bar: { groupWidth: '75%' },
         hAxis: {
             minValue: 0,
@@ -124,7 +127,7 @@ drawChart = (childArrayData, catagories) => {
             data.addColumn('number', category);
         });
         data.addRows(childArrayData.map(child => {
-            return [child.name,  ...catagories.map(category => child[category])];
+            return [child.name, ...catagories.map(category => child[category])];
         }));
         let chart = new google.visualization.ColumnChart(document.getElementById('fullStacked'));
         chart.draw(data, options_fullStacked);

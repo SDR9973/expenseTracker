@@ -1,4 +1,4 @@
-const url = `http://localhost:5001`;
+const url = `https://expensetracker-qi9u.onrender.com`;
 
 window.onload = async () => {
     try {
@@ -65,7 +65,7 @@ loadList = (childData, walletData) => {
         let formElement = '';
         let wallet = walletData.find(wallet => wallet.child_id === child.child_id);
         if (!wallet) {
-            formElement = `<a role="button" href="addNewWallet.html" class="btn btn-primary">Add Wallet</a>`
+            formElement = `<button class="btn btn-primary addWallet" data-childId="${child.child_id}">Add Wallet</button>`
         } else {
             if (wallet.allowance === undefined) {
                 wallet.allowance = 0;
@@ -95,6 +95,7 @@ loadList = (childData, walletData) => {
 eventListeners = () => {
     document.addEventListener('submit', handleChildUpdate);
     document.addEventListener('reset', handleChildDelete);
+    document.addEventListener('click', handleAddWallet);
 };
 
 handleChildUpdate = async (event) => {
@@ -130,4 +131,11 @@ handleChildDelete = async (event) => {
     catch (error) {
         console.error('Error deleting child:', error);
     }
+};
+
+handleAddWallet = async (event) => {
+    const childId = event.target.getAttribute('data-childId');
+    if (!childId) return;
+    cookies['childId'] = childId;
+    window.location.href = 'addNewWallet.html';
 };

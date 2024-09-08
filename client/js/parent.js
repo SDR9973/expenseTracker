@@ -1,4 +1,4 @@
-const url = `http://localhost:5001`;
+const url = `https://expensetracker-qi9u.onrender.com`;
 
 window.onload = () => {
     loadMonth();
@@ -142,7 +142,7 @@ getTransactions = () => {
             balanceElement.innerHTML = `${currency}${balance} / ${currency}${allowance}`;
             console.log(`Transactions fetched for childId: ${childId} and month: ${month}`);
         }).catch(() => {
-            if(allowance === undefined || allowance === NaN)
+            if (allowance === undefined || allowance === NaN)
                 allowance = 0;
             transactionList.innerHTML =
                 `<li>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,17 @@
   <script src="js/addWallet.js"></script>
   <title>Add New Wallet</title>
 </head>
+
 <body>
   <div class="header">
     <div class="title">Add New Wallet</div>
   </div>
-
   <div class="balance-container" style="flex-direction:row; display:flex;">
-
     <select id="currencySelect" style="width: 20%; display: inline;">
-        <option selected disabled>Currency</option>
-      </select>
+      <option selected disabled>Currency</option>
+    </select>
     <input type="text" class="amount-input" value="8000.0" id="balanceInput">
   </div>
-
   <div class="container">
     <select id="bankSelect">
       <option selected disabled>Bank</option>
@@ -27,9 +26,8 @@
     <select name="childList" id="childList" class="form-select">
     </select>
     <button class="button">Continue</button>
-
   </div>
-
   <script src="./js/bankAPI.js"></script>
 </body>
+
 </html>

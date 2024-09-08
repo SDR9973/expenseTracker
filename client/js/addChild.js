@@ -1,21 +1,21 @@
-const url = `http://localhost:5001`;
+const url = `https://expensetracker-qi9u.onrender.com`;
 
 window.onload = () => {
-    addChild(); 
+    addChild();
 };
 
 const addChild = () => {
     const addChildForm = document.getElementById('addChildForm');
-    
+
     if (addChildForm) {
         addChildForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); 
-            
+            event.preventDefault();
+
             const formData = new FormData(event.target);
             const name = formData.get('name');
             const email = formData.get('email');
             const password = formData.get('password');
-            const parent_id = document.cookie.split('accountId=')[1]; 
+            const parent_id = document.cookie.split('accountId=')[1];
 
             if (!name || !email || !password) {
                 console.error('Please fill out all fields.');
@@ -38,11 +38,11 @@ const addChild = () => {
                 });
 
                 const data = await response.json();
-                
+
                 if (response.ok) {
                     console.log(data);
-                    document.cookie = `childId=${data.childId}`; 
-                    window.location.href = 'addNewWallet.html';
+                    document.cookie = `childId=${data.childId}`;
+                    window.location.href = 'wallet.html';
                 } else {
                     console.error('Error adding child:', data.error || 'Unknown error');
                     alert('Error adding child: ' + (data.error || 'Unknown error'));
