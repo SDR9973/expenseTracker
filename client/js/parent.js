@@ -81,6 +81,7 @@ getTransactions = () => {
     let expense = 0;
     let balance = 0;
     let allowance = 0;
+    let currency = '';
     const incomeElement = document.getElementById('income');
     const expenseElement = document.getElementById('expense');
     const balanceElement = document.getElementsByClassName('balance_amount')[0];
@@ -103,6 +104,7 @@ getTransactions = () => {
         .then(data => {
             allowance = data.allowance;
             balance = Number(data.allowance);
+            currency = data.currency;
             return fetch(`${url}/api/transactions/child/${childId}/month/${month}`)
         })
         .then(response => response.json())
@@ -135,11 +137,13 @@ getTransactions = () => {
             });
         }).then(() => {
             balance += income + expense;
-            incomeElement.innerHTML = `$${income}`;
-            expenseElement.innerHTML = `$${expense}`;
-            balanceElement.innerHTML = `$${balance} / $${allowance}`;
+            incomeElement.innerHTML = `${currency}${income}`;
+            expenseElement.innerHTML = `${currency}${expense}`;
+            balanceElement.innerHTML = `${currency}${balance} / ${currency}${allowance}`;
             console.log(`Transactions fetched for childId: ${childId} and month: ${month}`);
         }).catch(() => {
+            if(allowance === undefined || allowance === NaN)
+                allowance = 0;
             transactionList.innerHTML =
                 `<li>
                     <div class="transaction_icon"></div>
