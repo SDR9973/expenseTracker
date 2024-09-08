@@ -36,8 +36,7 @@ getChildren = async () => {
         return;
     }
     try {
-        
-        const response = await fetch(`${url}/api/wallets/all/${parentId}`);
+        const response = await fetch(`${url}/api/parents/${parentId}/children`);
         const data = await response.json();
         return data;
     }
@@ -101,8 +100,6 @@ eventListeners = () => {
 handleChildUpdate = async (event) => {
     const childId = event.target.getElementsByClassName('trash')[0].getAttribute('data-childId');
     const allowance = event.target.getElementsByClassName('form-control')[0].value;
-    const currency = event.target.getElementsByClassName('input-group-text')[0].innerText;
-    const parentId = cookies['accountId'];
     try {
         const response = await fetch(`${url}/api/wallets/${childId}`, {
             method: 'PUT',

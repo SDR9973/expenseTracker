@@ -119,6 +119,7 @@ drawChart = (childArrayData, catagories, numberOfChildren) => {
             ticks: [0, .3, .6, .9, 1]
         }
     };
+    const spinnerBorder = document.getElementsByClassName('spinner-border')[0];
     try {
         let data = new google.visualization.DataTable();
         data.addColumn('string', 'Child');
@@ -130,6 +131,7 @@ drawChart = (childArrayData, catagories, numberOfChildren) => {
             return [child.name, ...catagories.map(category => child[category])];
         }));
         let chart = new google.visualization.ColumnChart(document.getElementById('fullStacked'));
+        spinnerBorder.style.display = 'none';
         chart.draw(data, options_fullStacked);
     }
     catch (error) {
