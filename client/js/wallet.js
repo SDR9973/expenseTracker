@@ -29,7 +29,6 @@ pageCheck = () => {
 }
 
 getChildren = async () => {
-    let childData = [];
     const parentId = cookies['accountId'];
     console.log(parentId);
     if (!parentId) {
@@ -39,10 +38,7 @@ getChildren = async () => {
     try {
         const response = await fetch(`${url}/api/parents/${parentId}/children`);
         const data = await response.json();
-        data.forEach(child => {
-            childData.push(child);
-        });
-        return childData;
+        return data;
     }
     catch (error) {
         throw new Error('Error fetching children:', error);
@@ -50,15 +46,11 @@ getChildren = async () => {
 }
 
 getAllowance = async () => {
-    let walletData = [];
     const parentId = cookies['accountId'];
     try {
         const response = await fetch(`${url}/api/wallets/all/${parentId}`);
         const data = await response.json();
-        data.forEach(wallet => {
-            walletData.push(wallet);
-        });
-        return walletData;
+        return data;
     }
     catch (error) {
         throw new Error('Error fetching wallets:', error);
@@ -69,20 +61,18 @@ loadList = (childData, walletData) => {
     const childrenList = document.getElementsByClassName('childrenList')[0];
     childrenList.innerHTML = '';
     childData.forEach(child => {
+        let formElement = '';
         let wallet = walletData.find(wallet => wallet.child_id === child.child_id);
         if (!wallet) {
-            wallet = { allowence: 0, currency: '$' };
-        }
-        if (wallet.allowance === undefined) {
-            wallet.allowance = 0;
-        }
-        if (wallet.currency === undefined) {
-            wallet.currency = '$';
-        }
-
-        const childElement = `
-            <li class="list-group-item mb-3 childItem">
-                <h3>${child.name}</h3>
+            formElement = `<a role="button" href="addNewWallet.html" class="btn btn-primary">Add Wallet</a>`
+        } else {
+            if (wallet.allowance === undefined) {
+                wallet.allowance = 0;
+            }
+            if (wallet.currency === undefined) {
+                wallet.currency = '$';
+            }
+            formElement = `
                 <form class="input-group">
                     <input type="number" step=".01" class="form-control" placeholder="${wallet.allowance}">
                     <span class="input-group-text">${wallet.currency}</span>
@@ -90,8 +80,13 @@ loadList = (childData, walletData) => {
                     <button type="reset" class="btn btn-outline-secondary trash" data-childId="${child.child_id}">
                         <i class="bi bi-trash-fill"></i>
                     </button>
-                </form>
-            </li>`;
+                </form>`;
+        }
+        const childElement = `
+            <li li class="list-group-item mb-3 childItem" >
+                <h3>${child.name}</h3>
+                ${formElement}
+            </li> `;
         childrenList.innerHTML += childElement;
     });
 };
@@ -130,7 +125,6 @@ handleChildDelete = async (event) => {
             method: 'DELETE'
         });
         const data = await response.json();
-        event.target.closest('.childItem').remove();
     }
     catch (error) {
         console.error('Error deleting child:', error);
