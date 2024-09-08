@@ -89,7 +89,7 @@ async function updateWallet(req, res) {
 
 async function deleteWallet(req, res) {
   const walletId = req.params.id;
-
+  console.log(walletId)
   const deleteQuery = "DELETE FROM tbl_107_wallets WHERE child_id = ?";
 
   try {

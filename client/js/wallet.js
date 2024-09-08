@@ -37,9 +37,17 @@ getChildren = async () => {
         return;
     }
     try {
-        const response = await fetch(`${url}/api/parents/${parentId}/children`);
+        
+        const response = await fetch(`${url}/api/wallets/all/${parentId}`);
         const data = await response.json();
-        data.forEach(child => {
+        console.log(data)
+        data.forEach(async child => {
+            console.log(child.child_id)
+            const response_child = await fetch(`${url}/api/children/${child.child_id}`);
+
+            const data_child = await response_child.json()
+            console.log(data_child)
+            child['name'] = data_child['name']
             childData.push(child);
         });
         return childData;
