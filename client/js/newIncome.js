@@ -49,7 +49,7 @@ getDateTime = () => {
 
 getCategories = async () => {
     try {
-        const response = await fetch(`../data/categories.json`);
+        const response = await fetch(`data/categories.json`);
         const data = await response.json();
         return data.categories;
     }
